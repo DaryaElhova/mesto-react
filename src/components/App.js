@@ -10,6 +10,11 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState({});
+
+  function handleCardClick(card) {
+    setSelectedCard(card);
+  }
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
@@ -27,6 +32,7 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
+    setSelectedCard({});
   }
 
   return (
@@ -37,6 +43,7 @@ function App() {
         onEditAvatar={handleEditAvatarClick}
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
+        onCardClick = {handleCardClick}
         />
         <Footer />
         <PopupWithForm
@@ -51,10 +58,10 @@ function App() {
           <span className="popup__input-error job-input-error popup__error"></span>
         </PopupWithForm>
         <PopupWithForm
-        name="add_card"
-        title="Новое место"
-        isOpen={isAddPlacePopupOpen}
-        onClose={closeAllPopups}
+          name="add_card"
+          title="Новое место"
+          isOpen={isAddPlacePopupOpen}
+          onClose={closeAllPopups}
         >
           <input className="popup__field popup__field_type_region" type="text" id="region-input" value="" placeholder="Название" required minlength="2" maxlength="30" name="region"/>
           <span className="region-input-error popup__error"></span>
@@ -62,34 +69,23 @@ function App() {
           <span className="image-input-error popup__error"></span>
         </PopupWithForm>
         <PopupWithForm
-        name="confirm"
-        title="Вы уверены?"
+          name="confirm"
+          title="Вы уверены?"
         >
         </PopupWithForm>
         <PopupWithForm
-        name="change-avatar"
-        title="Обновить аватар"
-        isOpen={isEditAvatarPopupOpen}
-        onClose={closeAllPopups}
+          name="change-avatar"
+          title="Обновить аватар"
+          isOpen={isEditAvatarPopupOpen}
+          onClose={closeAllPopups}
         >
         </PopupWithForm>
-        <ImagePopup />
-    
-      </div>
+        <ImagePopup 
+          card={selectedCard}
+          onClose={closeAllPopups}
 
-      <template className="elements-template">
-        <li className="elements__element">
-          <button className="elements__btn-delete" type="button" aria-label="Удалить"></button>
-          <img className="elements__image" src="#" alt="#" />
-          <div className="elements__caption">
-            <h2 className="elements__title"></h2>
-            <div className="elements__like">
-              <button className="elements__icon" type="button" aria-label="Нравится"></button>
-              <p className="elements__counter"></p>
-            </div>
-          </div>
-        </li>
-      </template>
+        />
+      </div>
     </div>
   );
 }

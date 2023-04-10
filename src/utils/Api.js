@@ -89,4 +89,9 @@ changeAvatarAPI(avatarLink) {
 
 }
 
-export const api = new Api();
+const api = new Api(
+  "https://mesto.nomoreparties.co/v1/cohort-61",
+   "4ad54b8d-418c-4c83-835c-6ae9b7d3aa74"
+);
+
+export default api;
