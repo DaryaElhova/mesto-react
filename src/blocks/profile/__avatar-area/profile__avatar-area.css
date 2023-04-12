@@ -6,6 +6,9 @@
   display: flex;
   border-radius: 50%;
   overflow: hidden;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 @media screen and (max-width: 644px) {

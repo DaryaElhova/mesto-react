@@ -26,22 +26,21 @@ export default function Main(props) {
     .catch((err) => console.log(`Возникла ошибка ${err}`))
   }, []);
 
-
   return (
     <main>
       <section className="profile">
-        <div className="profile__avatar-area">
+        <div className="profile__avatar-area" style={{ backgroundImage: `url(${userAvatar})` }} >
           <button
             className="profile__avatar-button"
             type="button"
             aria-label="Обновить аватар"
             onClick={props.onEditAvatar}
           ></button>
-          <img
+          {/* <img
             className="profile__avatar"
             src={userAvatar}
             alt="аватар профиля"
-          />
+          /> */}
         </div>
         <div className="profile__info">
           <h1 className="profile__title">{userName}</h1>

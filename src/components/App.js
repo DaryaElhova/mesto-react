@@ -50,7 +50,6 @@ function App() {
         <PopupWithForm
           name="edit-profile"
           title="Редактировать профиль"
-          text="Сохранить"
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
         >
@@ -114,7 +113,6 @@ function App() {
           name="change-avatar"
           title="Обновить аватар"
           isOpen={isEditAvatarPopupOpen}
-          text="Сохранить"
           onClose={closeAllPopups}
         ></PopupWithForm>
         <ImagePopup card={selectedCard} onClose={closeAllPopups} />
