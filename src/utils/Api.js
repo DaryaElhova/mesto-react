@@ -65,19 +65,34 @@ deleteCardApi(cardId){
   }).then(this._getJson);
 }
 
-putLikeApi(cardId){
-  return fetch(`${this._basePath}/cards/${cardId}/likes`, {
-    method: "PUT",
-    headers: this._getHeaders(),
-  }).then(this._getJson);
+//общий метод управления лайками
+changeLikeCardStatus(cardId, isLiked){
+  if (isLiked) {
+    return fetch(`${this._basePath}/cards/${cardId}/likes`,{
+      method: "PUT",
+      headers: this._getHeaders(),
+    }).then(this._getJson);
+  } else {
+    return fetch(`${this._basePath}/cards/${cardId}/likes`, {
+      method: "DELETE",
+      headers: this._getHeaders(),
+    }).then(this._getJson);
+  }
 }
 
-deleteLikeApi(cardId){
-  return fetch(`${this._basePath}/cards/${cardId}/likes`, {
-    method: "DELETE",
-    headers: this._getHeaders(),
-  }).then(this._getJson);
-}
+// putLikeApi(cardId){
+//   return fetch(`${this._basePath}/cards/${cardId}/likes`, {
+//     method: "PUT",
+//     headers: this._getHeaders(),
+//   }).then(this._getJson);
+// }
+
+// deleteLikeApi(cardId){
+//   return fetch(`${this._basePath}/cards/${cardId}/likes`, {
+//     method: "DELETE",
+//     headers: this._getHeaders(),
+//   }).then(this._getJson);
+// }
 
 changeAvatarAPI(avatarLink) {
   return fetch(`${this._basePath}/users/me/avatar`, {
