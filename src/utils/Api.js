@@ -35,13 +35,13 @@ getUserInfoApi(){
 }
 
 //Метод редактирования данных профиля
-updateUserInfo(data){
+updateUserInfo(userName, userAbout){
   return fetch(`${this._basePath}/users/me`, {
     method: "PATCH",
     headers: this._getHeaders(),
     body: JSON.stringify({
-      name: data.name,
-      about: data.info
+      name: userName,
+      about: userAbout
     })
   }).then(this._getJson)
 }
@@ -80,19 +80,6 @@ changeLikeCardStatus(cardId, isLiked){
   }
 }
 
-// putLikeApi(cardId){
-//   return fetch(`${this._basePath}/cards/${cardId}/likes`, {
-//     method: "PUT",
-//     headers: this._getHeaders(),
-//   }).then(this._getJson);
-// }
-
-// deleteLikeApi(cardId){
-//   return fetch(`${this._basePath}/cards/${cardId}/likes`, {
-//     method: "DELETE",
-//     headers: this._getHeaders(),
-//   }).then(this._getJson);
-// }
 
 changeAvatarAPI(avatarLink) {
   return fetch(`${this._basePath}/users/me/avatar`, {

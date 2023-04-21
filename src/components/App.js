@@ -7,6 +7,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import api from "../utils/Api.js";
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
+import { EditProfilePopup } from "./EditProfilePopup.js";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -68,6 +69,15 @@ function App() {
     setIsAddPlacePopupOpen(true);
   }
 
+  function handleUpdateUser(userData) {
+    api.updateUserInfo(userData.name, userData.about)
+      .then((res)=> {
+        setCurrentUser(res);
+        closeAllPopups()
+      })
+      .catch( (err) => { console.log(`Возникла ошибка ${err}`)})
+  }
+
   function closeAllPopups() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
@@ -90,37 +100,11 @@ function App() {
             cards={cards}
           />
           <Footer />
-          <PopupWithForm
-            name="edit-profile"
-            title="Редактировать профиль"
+          <EditProfilePopup
             isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}
-          >
-            <input
-              className="popup__field popup__field_type_name"
-              type="text"
-              id="name-input"
-              value=""
-              placeholder="ФИО"
-              required
-              minLength="2"
-              maxLength="40"
-              name="name"
-            />
-            <span className="name-input-error popup__error"></span>
-            <input
-              className="popup__field popup__field_type_job"
-              type="text"
-              id="job-input"
-              value=""
-              placeholder="Чем занимаетесь?"
-              required
-              minLength="2"
-              maxLength="200"
-              name="info"
-            />
-            <span className="popup__input-error job-input-error popup__error"></span>
-          </PopupWithForm>
+            onUpdateUser={handleUpdateUser}
+          />
           <PopupWithForm
             name="add_card"
             title="Новое место"

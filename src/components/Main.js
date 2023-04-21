@@ -25,7 +25,7 @@ export default function Main(props) {
             aria-label="Редактировать профиль"
             onClick={props.onEditProfile}
           ></button>
-          <p className="profile__subtitle">{currentUser.description}</p>
+          <p className="profile__subtitle">{currentUser.about}</p>
         </div>
         <button
           className="profile__button-add"
