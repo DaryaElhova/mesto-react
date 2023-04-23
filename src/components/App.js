@@ -9,6 +9,7 @@ import api from "../utils/Api.js";
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 import { EditProfilePopup } from "./EditProfilePopup.js";
 import { EditAvatarPopup } from "./EditAvatarPopup.js";
+import { AddPlacePopup} from "./AddPlacePopup.js";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -21,10 +22,10 @@ function App() {
 
   useEffect(() => {
     api.getCardsApi()
-    .then((cards) => {
-      setCards(cards);
-    })
-    .catch((err) => console.log(`Возникла ошибка ${err}`))
+      .then((cards) => {
+        setCards(cards);
+      })
+      .catch((err) => console.log(`Возникла ошибка ${err}`))
   }, []);
 
   useEffect(() => {
@@ -32,6 +33,7 @@ function App() {
       .then((data) => {
         setCurrentUser(data);
       })
+      .catch((err) => console.log(`Возникла ошибка ${err}`))
   }, [])
 
   function handleCardLike(card) {
@@ -70,6 +72,15 @@ function App() {
         closeAllPopups()
       })
       .catch( (err) => { console.log(`Возникла ошибка ${err}`)})
+  }
+
+  function handleAddPlaceSubmit (cardData) {
+    api.addNewCardApi(cardData)
+    .then((newCard) => {
+      setCards([newCard, ...cards]);
+      closeAllPopups();
+    })
+    .catch( (err) => { console.log(`Возникла ошибка ${err}`)})
   }
 
   function handleCardClick(card) {
@@ -115,36 +126,11 @@ function App() {
             onClose={closeAllPopups}
             onUpdateUser={handleUpdateUser}
           />
-          <PopupWithForm
-            name="add_card"
-            title="Новое место"
-            text="Добавить"
+          <AddPlacePopup
             isOpen={isAddPlacePopupOpen}
             onClose={closeAllPopups}
-          >
-            <input
-              className="popup__field popup__field_type_region"
-              type="text"
-              id="region-input"
-              value=""
-              placeholder="Название"
-              required
-              minLength="2"
-              maxLength="30"
-              name="region"
-            />
-            <span className="region-input-error popup__error"></span>
-            <input
-              className="popup__field popup__field_type_link"
-              type="url"
-              id="image-input"
-              value=""
-              placeholder="Ссылка на картинку"
-              required
-              name="link"
-            />
-            <span className="image-input-error popup__error"></span>
-          </PopupWithForm>
+            onAddPlace={handleAddPlaceSubmit}
+          />
           <PopupWithForm name="confirm" title="Вы уверены?"></PopupWithForm>
           <EditAvatarPopup
             isOpen={isEditAvatarPopupOpen}
