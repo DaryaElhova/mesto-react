@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import api from "../utils/Api.js";
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 import { EditProfilePopup } from "./EditProfilePopup.js";
+import { EditAvatarPopup } from "./EditAvatarPopup.js";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -136,13 +137,13 @@ function App() {
             <span className="image-input-error popup__error"></span>
           </PopupWithForm>
           <PopupWithForm name="confirm" title="Вы уверены?"></PopupWithForm>
-          <PopupWithForm
-            name="change-avatar"
-            title="Обновить аватар"
+          <EditAvatarPopup
             isOpen={isEditAvatarPopupOpen}
             onClose={closeAllPopups}
-          ></PopupWithForm>
-          <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+          />
+          <ImagePopup
+            card={selectedCard}
+            onClose={closeAllPopups} />
         </div>
       </div>
     </CurrentUserContext.Provider>
