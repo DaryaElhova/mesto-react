@@ -18,6 +18,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState("");
   const [cards, setCards] = useState([]);
 
+
   useEffect(() => {
     api.getCardsApi()
     .then((cards) => {
@@ -36,7 +37,6 @@ function App() {
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
     const isLiked = card.likes.some(cardItem => cardItem._id === currentUser._id);
-    
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api.changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
@@ -53,7 +53,25 @@ function App() {
     })
       .catch( (err) => { console.log(`Возникла ошибка ${err}`)})
   }
+
+  function handleUpdateAvatar(avatarLink){
+    api.changeAvatarApi(avatarLink)
+    .then((res) => {
+      setCurrentUser(res);
+      closeAllPopups();
+    })
+    .catch((err) => { console.log(`Возникла ошибка ${err}`)})
+  }
   
+  function handleUpdateUser(userData) {
+    api.updateUserInfo(userData.name, userData.about)
+      .then((res)=> {
+        setCurrentUser(res);
+        closeAllPopups()
+      })
+      .catch( (err) => { console.log(`Возникла ошибка ${err}`)})
+  }
+
   function handleCardClick(card) {
     setSelectedCard(card);
   }
@@ -68,15 +86,6 @@ function App() {
 
   function handleAddPlaceClick() {
     setIsAddPlacePopupOpen(true);
-  }
-
-  function handleUpdateUser(userData) {
-    api.updateUserInfo(userData.name, userData.about)
-      .then((res)=> {
-        setCurrentUser(res);
-        closeAllPopups()
-      })
-      .catch( (err) => { console.log(`Возникла ошибка ${err}`)})
   }
 
   function closeAllPopups() {
@@ -140,6 +149,7 @@ function App() {
           <EditAvatarPopup
             isOpen={isEditAvatarPopupOpen}
             onClose={closeAllPopups}
+            onUpdateAvatar={handleUpdateAvatar}
           />
           <ImagePopup
             card={selectedCard}

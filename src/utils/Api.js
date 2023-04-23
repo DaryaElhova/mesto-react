@@ -80,8 +80,7 @@ changeLikeCardStatus(cardId, isLiked){
   }
 }
 
-
-changeAvatarAPI(avatarLink) {
+changeAvatarApi(avatarLink) {
   return fetch(`${this._basePath}/users/me/avatar`, {
     method: "PATCH",
     headers: this._getHeaders(),
