@@ -9,7 +9,7 @@ export function EditAvatarPopup({isOpen, onClose, onUpdateAvatar}){
     if(!isOpen){
       avatarRef.current.value = '';
     }
-  })
+  }, [isOpen])
 
   function handleSubmit(e) {
     e.preventDefault();

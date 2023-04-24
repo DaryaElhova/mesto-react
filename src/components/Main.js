@@ -35,7 +35,7 @@ export default function Main(props) {
         ></button>
       </section>
       <ul className="elements">
-        {props.cards.slice(0, 12).map((card) => {
+        {props.cards.map((card) => {
           return (
             <Card
               key={card._id}

@@ -22,7 +22,6 @@ export function AddPlacePopup({isOpen, onClose, onAddPlace}){
 
   function handleSubmit(e){
     e.preventDefault();
-    debugger
     onAddPlace({
       region: name,
       link: link

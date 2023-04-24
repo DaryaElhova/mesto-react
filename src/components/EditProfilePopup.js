@@ -18,9 +18,11 @@ export function EditProfilePopup({isOpen, onClose, onUpdateUser}){
 // После загрузки текущего пользователя из API
 // его данные будут использованы в управляемых компонентах.
   useEffect(() => {
-    setName(currentUser.name);
-    setDescription(currentUser.about);
-  }, [currentUser.name, currentUser.about])
+    if(!isOpen){
+      setName(currentUser.name);
+      setDescription(currentUser.about);
+    }
+  }, [isOpen, currentUser.name, currentUser.about])
 
   function handleSubmit(e) {
     // Запрещаем браузеру переходить по адресу формы

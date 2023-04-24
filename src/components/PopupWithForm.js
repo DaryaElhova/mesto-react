@@ -9,8 +9,9 @@ export default function PopupWithForm(props) {
             {props.children}
             {/* почти везде текст кнопки сохранить,поэтому можно использовать {props.text || 'Сохранить'} */}
             <button className="popup__btn" type="submit">{props.text || 'Сохранить'}</button>
-            <button className="popup__close" type="button" onClick={props.onClose}></button>
+            {/* <button className="popup__close" type="button" onClick={props.onClose}></button> */}
           </form>
+          <button className="popup__close" type="button" onClick={props.onClose}></button>
         </div>
       </div>
   )
